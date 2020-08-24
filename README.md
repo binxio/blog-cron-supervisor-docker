@@ -6,7 +6,7 @@ Recently I worked on a PHP application that used cron for background processing.
 
 Cron runs jobs on a time-based schedule, using a [different environment](https://askubuntu.com/a/23438). It uses crontab-files to define the jobs. These files use a strict format that requires a [newline](https://askubuntu.com/a/23337) for each job. And finally they require [file permission](https://debian-administration.org/article/687/So_your_cronjob_did_not_run) 0644.
 
-## Running cron in your container
+## Running cron in your container
 
 In this example I'm running a PHP website and a application specific cron job in my container. The website is found under src. The crontab file is found at cron.d/myapp.
 
