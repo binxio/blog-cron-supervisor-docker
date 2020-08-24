@@ -1,0 +1,2 @@
+* * * * * www-data exec /bin/bash -c ". /run/supervisord.env; /app/script.sh >> /app/cron.sourced_environment.log"
+* * * * * www-data exec /bin/bash -c "/app/script.sh >> /app/cron.no_environment.log"

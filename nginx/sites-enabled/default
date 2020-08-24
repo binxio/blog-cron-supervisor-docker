@@ -1,0 +1,47 @@
+server {
+
+    listen 8080 default_server;
+    server_name _;
+
+    root /app/public;
+    index index.php index.html index.htm;
+
+    # Media: images, icons, video, audio, HTC
+    location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+        expires 10m;
+        access_log off;
+        etag on;
+        add_header Cache-Control "public";
+    }
+
+    # CSS and Javascript
+    location ~* \.(?:css|js)$ {
+        expires 10m;
+        access_log off;
+        etag on;
+        add_header Cache-Control "public";
+    }
+
+    # pass the PHP scripts to FastCGI server
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_pass fastcgi_backend;
+        fastcgi_buffer_size 16k;
+        fastcgi_buffers 256 16k;
+        fastcgi_busy_buffers_size 4064k;
+        fastcgi_max_temp_file_size 0;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_read_timeout 600s;
+    }
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    # Drop accesses for some files
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location ~ /\.          { access_log off; log_not_found off; deny all; }
+    location ~ ~$           { access_log off; log_not_found off; deny all; }
+}
