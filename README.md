@@ -1,6 +1,8 @@
-# Using cron for container background tasks
+# Run container background tasks with cron
 
 Recently I worked on a PHP application that used cron for background processing. Since it took some time to get it working, I'm providing the generalized application configuration here.
+
+> Check the associated blog: https://binx.io/blog/2020/08/24/how-to-run-container-background-tasks-with-cron/
 
 ## Things to know about cron
 
@@ -10,7 +12,7 @@ Cron runs jobs on a time-based schedule, using a [different environment](https:/
 
 In this example I'm running a PHP website and a application specific cron job in my container. The website is found under src. The crontab file is found at cron.d/myapp.
 
-The website and cron services are started with [Supervisor](http://supervisord.org/), since I want my container to fail when either service fails. Supervisor is configured to start cron and save the current environment for cron jobs:
+The website and cron services are started with [Supervisor](http://supervisord.org/), since I want my container to fail when any service fails. Supervisor is configured to start cron and save the current environment for cron jobs:
 
 ```ini
 [program:cron]
